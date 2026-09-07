@@ -1,0 +1,3 @@
+# Optional website asset build only; the rendering skill needs no Python packages.
+Pillow==11.3.0
+fonttools[woff]==4.60.2

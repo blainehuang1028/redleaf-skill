@@ -1,0 +1,26 @@
+name: Verify Redleaf
+on:
+  push:
+    branches: [main]
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: skills/redleaf/package-lock.json
+      - run: npm ci
+        working-directory: skills/redleaf
+      - run: npm run fonts
+        working-directory: skills/redleaf
+      - run: npx playwright install --with-deps chromium
+        working-directory: skills/redleaf
+      - run: node tests/regression.mjs output/ci
+      - run: node scripts/package.mjs

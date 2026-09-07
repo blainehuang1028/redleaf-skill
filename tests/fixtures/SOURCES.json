@@ -1,0 +1,14 @@
+{
+  "checked": "2026-09-08",
+  "lake.jpg": {
+    "author": "Mark Koch",
+    "title": "river near mountains",
+    "source": "https://unsplash.com/photos/river-near-mountains-KiRlN3jjVNU",
+    "license": "https://unsplash.com/license",
+    "sha256": "2d25c319621050abc0e62391df7b9c3ac2a412c3383fcd86b646724f1de1de59"
+  },
+  "guide-long.png": {
+    "source": "Local Redleaf guide, captured with Tabbit",
+    "license": "MIT"
+  }
+}

@@ -1,0 +1,6 @@
+theme: tenghuang
+coverImage: material.svg
+pageStyles:
+  "2":
+    markScale: 1.2
+    markLift: 4

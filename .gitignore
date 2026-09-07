@@ -1,0 +1,10 @@
+.DS_Store
+node_modules/
+skills/redleaf/assets/fonts/*.otf
+output/
+dist/
+skills/redleaf/assets/fonts/*.ttf
+
+design-study/
+tests/evidence/
+website/.DS_Store

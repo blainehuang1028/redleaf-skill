@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>使用指南 · 红笺 Redleaf</title>
+<meta name="description" content="红笺是一款开源中文图文排版技能。把 Markdown 排成 3:4 纸感图片，保留原文，自动分页，支持五种传统色与本地离线导出。">
+<meta name="theme-color" content="#f4efe3">
+<meta property="og:title" content="使用指南 · 红笺 Redleaf"><meta property="og:description" content="中文图文排版技能。暖纸、墨字、淡染，让原文在手机上从容展开。"><meta property="og:type" content="website"><meta property="og:image" content="assets/share.jpg">
+<link rel="icon" href="assets/favicon.png"><link rel="stylesheet" href="site.css">
+<link rel="preload" href="assets/serif.woff2" as="font" type="font/woff2" crossorigin>
+<script src="site.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">跳到正文</a>
+<header class="nav wrap"><a class="brand" href="index.html" aria-label="红笺首页">红笺<span>Redleaf</span></a><nav aria-label="主导航"><a href="index.html#samples">看样张</a><a href="index.html#start">开始使用</a><a href="guide.html">使用指南</a></nav></header>
+<main id="main"><article class="prose wrap"><h1>从一篇原稿，<br>到一叠红笺。</h1><p>红笺在本地读取 Markdown，导出 1080 × 1440 的连续图片。开始前准备 Node.js 22 或更新版本，以及一份原稿。</p><a class="button" href="downloads/redleaf-skill.zip" download>下载技能包</a><h2>一条命令安装</h2><pre><code>npx skills add blainehuang1028/redleaf-skill --skill redleaf</code></pre><p>由开源 <a href="https://github.com/vercel-labs/skills">Skills CLI</a> 安装。运行后选择所用 Agent。默认安装到当前项目，加 <code>-g</code> 可安装到全局目录。</p><p>如需固定版本，可从发布标签安装：</p><pre><code>npx skills add https://github.com/blainehuang1028/redleaf-skill/tree/v0.1.0/skills/redleaf</code></pre><p>安装命令放入技能文件；首次使用仍需下方的依赖、字体与 Chromium 准备步骤，Agent 可以按技能说明执行。</p><h2>交给 Agent</h2><p>解压下载包，将 redleaf 文件夹放入所用 Agent 的 skills 目录。不同工具的目录可能不同，以对应工具的说明为准。也可以直接让 Agent 读取 redleaf/SKILL.md。</p><p>把这句话和原稿一起交给它：</p><blockquote>请用红笺排版这份 Markdown，保留原文，使用朱砂主题，导出 3:4 图片和预览。</blockquote><h2>手动准备</h2><p>在 redleaf 目录中打开终端，依次运行：</p><pre><code>npm ci
+npm run fonts
+npx playwright install chromium</code></pre><p>字体来自固定版本的开源字体仓库，下载后校验 SHA256。首次准备需要联网；之后使用本地图片即可离线排版。</p><h2>排第一篇</h2><pre><code>node scripts/render.mjs examples/article.md \
+  --out ./my-first-redleaf \
+  --theme zhusha</code></pre><p>输出目录必须是一个新目录，红笺会保留已有结果。打开输出目录的 index.html 检查预览，再取走 01.png、02.png 等编号图片。</p><h2>五色随文</h2><ul><li><code>zhusha</code>：朱砂，默认主题。</li><li><code>canglan</code>：苍蓝，适合教程与研究笔记。</li><li><code>canglv</code>：苍绿，适合阅读与日常观察。</li><li><code>zheshi</code>：赭石，适合经验与复盘。</li><li><code>tenghuang</code>：藤黄作淡染，苍黄作文字。</li></ul><h2>强调有度，图文有序</h2><p>正文用 <code>==重要的话==</code> 标出淡染。封面强调须取自原题，例如：</p><pre><code>node scripts/render.mjs article.md \
+  --out ./second-edition \
+  --cover-highlight 意有光 \
+  --cover-image ./photo.jpg</code></pre><p>Markdown 的图片路径相对原稿文件。独立长截图按比例分段到连续页面，原图另存。请把长截图单独放在一个段落中。图片内已有的文字或水印会照原样保留。</p><h2>留存一份，方便再排</h2><p>每次输出会保留原始 Markdown、原图、settings.yml、文字 HTML、素材清单和 qa.json。检查通过后仍应看一遍 PNG，特别是表格、截图细节与跨页衔接。</p><p>需要局部调整笔触，可在 YAML 配置中设置页码，随后传入 <code>--config settings.yml</code>：</p><pre><code>theme: zhusha
+pageStyles:
+  '3':
+    markScale: 1.15
+    markLift: 4</code></pre><p>markScale 控制粗细，markLift 控制上移距离。更多参数与手动分页说明，见技能包中的 references/rendering.md。</p><h2>当前边界</h2><p>数学公式和 Mermaid 不自动执行，原始 HTML 作为文字安全显示。单行过高或过宽的表格会停止并提示调整。红笺负责排版与导出，社交平台发布由你完成。</p><p><a href="index.html#samples">回到样张</a> · <a href="sources.html">查看来源与许可</a></p></article></main><footer class="footer wrap"><p class="brand">红笺<span>Redleaf</span></p><p>一纸有序，一读入心。</p><div><a href="guide.html">指南</a><a href="sources.html">来源与许可</a><a href="LICENSE.txt">MIT License</a></div></footer>
+</body></html>

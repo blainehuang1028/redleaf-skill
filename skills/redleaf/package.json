@@ -1,0 +1,26 @@
+{
+  "name": "redleaf-skill",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Redleaf: preserve Markdown as readable portrait image essays",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "render": "node scripts/render.mjs",
+    "fonts": "node scripts/fonts.mjs"
+  },
+  "dependencies": {
+    "markdown-it": "^15.0.1",
+    "markdown-it-mark": "^4.0.0",
+    "playwright": "^1.58.0",
+    "yaml": "^2.8.2"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/blainehuang1028/redleaf-skill.git",
+    "directory": "skills/redleaf"
+  }
+}

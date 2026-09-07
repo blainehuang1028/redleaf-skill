@@ -1,0 +1,4 @@
+interface:
+  display_name: "红笺 · Redleaf"
+  short_description: "保留原文，将 Markdown 排成有东方纸墨气质的小红书图文与连续阅读图片"
+  default_prompt: "使用 $redleaf 将这份 Markdown 排成 3:4 图文，保留原文并采用朱砂纸墨风格。"

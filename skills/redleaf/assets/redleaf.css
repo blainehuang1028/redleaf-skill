@@ -1,0 +1,46 @@
+@import url('tokens.css');
+@font-face{font-family:RedleafSerif;src:url(fonts/serif.otf);font-weight:500;font-display:block}
+@font-face{font-family:RedleafSans;src:url(fonts/sans.otf);font-weight:400;font-display:block}
+@font-face{font-family:RedleafSans;src:url(fonts/sans-bold.otf);font-weight:700;font-display:block}
+@font-face{font-family:RedleafMono;src:url(fonts/mono.ttf);font-weight:100 900;font-display:block}
+/* Dimensions and colors are generated from tokens.json into tokens.css. */
+*{box-sizing:border-box}
+html,body{margin:0;color:var(--ink);background:var(--paper);font-family:RedleafSans,sans-serif;font-synthesis:style}
+.page{position:relative;width:var(--page-width);height:var(--page-height);isolation:isolate;overflow:hidden;background:var(--paper)}
+.paper{position:absolute;inset:0;width:100%;height:100%;z-index:-3;pointer-events:none}
+.pigment{position:absolute;z-index:-1;pointer-events:none}
+.content{position:relative;margin:0 var(--margin-x);padding-top:var(--margin-top);font-size:var(--body-size);line-height:var(--body-leading);letter-spacing:.4px;overflow-wrap:anywhere;line-break:strict}
+h1,h2,h3,h4,h5,h6,p,figure,blockquote,ul,ol,pre,table{margin:0}
+h1,h2,h3,h4,h5,h6{font-family:RedleafSerif,serif;font-weight:500;letter-spacing:0;break-after:avoid}
+h1{font-size:var(--h1-size);line-height:var(--h1-leading);margin-bottom:52px}
+h2{font-size:var(--h2-size);line-height:var(--h2-leading);margin-bottom:36px}
+h3{font-size:var(--h3-size);line-height:var(--h3-leading);margin-bottom:24px}
+h4,h5,h6{font-size:42px;line-height:1.5;margin-bottom:24px}
+p,ul,ol,blockquote,pre,table,figure{margin-bottom:36px}
+strong{font-weight:700}em{font-style:italic}a{color:var(--accent-text);text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:6px}
+mark,[data-wash]{background:none;color:var(--accent-text)}mark{box-decoration-break:clone;-webkit-box-decoration-break:clone}
+ul,ol{padding-left:1.2em}li{padding-left:8px;margin-bottom:16px}li:last-child{margin-bottom:0}li::marker{color:var(--accent-text)}li>ul,li>ol{margin-top:16px;margin-bottom:0}li>p{margin-bottom:16px}
+blockquote{padding:16px 0 16px 36px;color:var(--ink);font:500 var(--quote-size)/var(--quote-leading) RedleafSerif,serif}
+blockquote p{margin-bottom:24px}blockquote p:last-child{margin-bottom:0}
+.attribution{display:block;font:400 var(--caption-size)/var(--caption-leading) RedleafSans,sans-serif;color:var(--muted);margin-top:32px}
+hr{border:0;border-top:2px solid var(--rule);margin:52px 0}
+code{font:400 .88em/1.7 RedleafMono,RedleafSans,monospace;background:var(--surface);padding:2px 8px;box-decoration-break:clone}
+pre{padding:28px 32px;background:var(--surface);border-radius:4px;white-space:pre-wrap;overflow-wrap:anywhere;tab-size:2;font:400 var(--code-size)/var(--code-leading) RedleafMono,RedleafSans,monospace}
+pre code{font:inherit;background:none;padding:0;white-space:inherit}
+table{border-collapse:collapse;table-layout:fixed;width:100%;font-size:38px;line-height:1.6}
+th,td{text-align:left;vertical-align:top;padding:22px 18px;border-bottom:2px solid var(--rule);overflow-wrap:anywhere}
+th{font-weight:700;background:var(--surface)}td:first-child,th:first-child{padding-left:16px}
+.content img{display:block;max-width:100%;height:auto;object-fit:contain;margin:0 auto}
+figcaption,.caption{font-size:var(--caption-size);line-height:var(--caption-leading);color:var(--muted);margin-top:24px;letter-spacing:0}
+footer{position:absolute;left:var(--margin-x);right:var(--margin-x);bottom:var(--footer-bottom);display:flex;justify-content:space-between;gap:24px;font:400 var(--meta-size)/var(--meta-leading) RedleafSans,sans-serif;color:var(--muted);letter-spacing:.4px}
+footer span:first-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}footer span:last-child{flex-shrink:0}
+.eyebrow{font:400 var(--meta-size)/var(--meta-leading) RedleafSans,sans-serif;color:var(--muted);margin-bottom:32px;letter-spacing:2px}
+.cover .content{padding-top:146px}.cover .audience{font:500 76px/1.5 RedleafSerif,serif;margin-bottom:72px;letter-spacing:0}
+.cover h1{font:500 var(--display-size)/var(--display-leading) RedleafSerif,serif;letter-spacing:0;margin:0;text-wrap:balance}
+.cover h1 span{display:block}.cover h1 .accent{display:inline-block;color:var(--accent-text);margin-top:14px}
+.quote-page .content{padding-top:185px}.quote-page h1{margin-bottom:88px}.quote-page blockquote{padding:0;font-size:68px;line-height:1.7}
+.figure-placeholder{height:520px;display:flex;align-items:center;justify-content:center;text-align:center;background:var(--surface);border:2px solid var(--rule);color:var(--muted);font-size:32px;line-height:1.6}
+.continued{margin-top:0!important}
+@media print{body{background:none}.page{break-after:page}@page{size:1080px 1440px;margin:0}}
+
+.image-slice{position:relative;overflow:hidden;margin:0 auto 36px;max-width:100%}.image-slice img{position:absolute;left:0;max-width:none;margin:0}
