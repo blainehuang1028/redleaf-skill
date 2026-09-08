@@ -18,6 +18,7 @@ process.stdout.write((await run(['tests/long-image-boundaries.mjs'])).log);
 const cases=[];
 for(const theme of ['zhusha','canglan','canglv','zheshi','tenghuang'])cases.push(await render(`showcase-${theme}`,'tests/fixtures/showcase.md',['--theme',theme,'--cover-highlight','意有光']));
 for(const [name,file,args] of [
+ ['editorial','tests/fixtures/editorial.md',['--theme','canglv','--cover-image','lake.jpg']],
  ['article','skills/redleaf/examples/article.md',[]],['rich','tests/fixtures/rich.md',[]],
  ['photo','tests/fixtures/photo.md',['--theme','canglv','--cover-image','lake.jpg']],
  ['long-image','tests/fixtures/long-image.md',['--theme','canglan','--no-cover']],

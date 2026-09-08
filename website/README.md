@@ -15,7 +15,7 @@ python3 -m http.server 4388 --directory website
 - `index.html`：产品说明、五主题真实 WebP 样张、npx 安装命令、技能 ZIP、复制与主题切换。
 - `guide.html`：安装、配置、运行和使用边界。
 - `sources.html`：图片、字体、色彩、代码来源。
-- `examples/long-image/`：真实手机网页长截图的连续导出。
+- `examples/article/`：从 Markdown 直接排版的完整图文作品，含封面、图文、正文与摘记；旧长图示例链接跳转到此处。
 
 ## 重建资产
 
