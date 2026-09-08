@@ -59,3 +59,14 @@ html.preview-open{overflow:hidden}
  .article-page .section-title h1{font-size:28px}.article-page .section-title p{font-size:14px}.to-top{right:16px;bottom:16px}.back-link{margin-top:0}
 }
 @media(max-width:440px){.article-page .article-gallery{grid-template-columns:1fr}.article-gallery figure{width:100%;max-width:340px;margin:auto;padding:12px}}
+
+/* Lead with the product's purpose, then offer an example before installation. */
+.hero-copy .eyebrow{font-weight:700;color:var(--ink);font-size:16px;letter-spacing:.04em;margin-bottom:24px}
+.hero-copy h1{font-size:clamp(42px,4.1vw,58px);line-height:1.45;letter-spacing:0}
+.hero-copy h1 em{white-space:nowrap}
+.hero-copy .intro{max-width:33em;font-size:16px;line-height:1.9;margin:24px 0 28px}
+.hero-actions{display:flex;gap:24px;align-items:center;flex-wrap:wrap}
+.hero-secondary{font-size:15px;text-decoration:none;border-bottom:1px solid var(--line);padding:10px 0}
+.hero-compatibility{font-size:13px;line-height:1.9;color:var(--muted);margin-top:22px}
+@media(max-width:1000px) and (min-width:701px){.hero{grid-template-columns:minmax(0,1fr) 280px;gap:28px}.hero-art{width:280px}.hero-copy h1{font-size:39px}.desktop-break{display:none}}
+@media(max-width:700px){.hero-copy{padding:0}.hero-copy .eyebrow{font-size:14px;margin-bottom:20px}.hero-copy h1{font-size:clamp(32px,8.2vw,44px);line-height:1.5}.hero-copy .intro{font-size:15px;margin:20px 0 24px}.desktop-break{display:none}.hero-actions{gap:18px}.hero-actions .button{padding:12px 20px}.hero-secondary{font-size:14px}.hero-compatibility{font-size:12px;margin-top:18px}}
