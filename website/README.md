@@ -12,7 +12,7 @@ python3 -m http.server 4388 --directory website
 
 ## 内容
 
-- `index.html`：产品说明、五主题真实 PNG/WebP 样张、npx 安装命令、技能 ZIP、复制与主题切换。
+- `index.html`：产品说明、五主题真实 WebP 样张、npx 安装命令、技能 ZIP、复制与主题切换。
 - `guide.html`：安装、配置、运行和使用边界。
 - `sources.html`：图片、字体、色彩、代码来源。
 - `examples/long-image/`：真实手机网页长截图的连续导出。
@@ -34,4 +34,4 @@ python3 scripts/build-website.py --outputs output/release
 
 将 `website/` 内容或 `dist/redleaf-website.zip` 上传至静态托管服务。无构建步骤。服务器需将 `/` 映射到 `index.html`，保留目录结构。正式域名确定后，可添加绝对 canonical URL、绝对 Open Graph 图片 URL、sitemap 与自定义域名配置。此处不预填未确定域名。
 
-设计延续红笺纸墨系统，疏朗布局、克制交互（variance 5 / motion 2 / density 3）。浅色页面采用暖纸色，深色遵循系统偏好；排版成品保持原始纸色。层级仅使用跳转辅助链接的一个定位层，不使用滚动劫持。
+设计延续红笺纸墨系统，疏朗布局、克制交互（variance 5 / motion 2 / density 3）。浅色页面采用暖纸色，深色遵循系统偏好；排版成品保持原始纸色。展示区支持原尺寸图片弹窗预览；首屏图片仅作展示。不使用滚动劫持。

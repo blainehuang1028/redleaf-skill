@@ -1,3 +1,24 @@
+// Conservative raster segmentation: cut only across broad background bands.
+// Short content blocks are kept with what follows, so headings do not dangle.
+window.redleafImageBreaks=function(data,width,height,lineGaps=false){
+ const background=[data[0],data[1],data[2]],gap=lineGaps?4:Math.max(8,Math.round(width*.04));
+ const bands=[];let start=null;
+ for(let y=0;y<height;y++){
+  let ink=0;
+  for(let x=0;x<width;x++){
+   const i=(y*width+x)*4;
+   if(data[i+3]>20&&Math.max(...background.map((v,c)=>Math.abs(data[i+c]-v)))>60)ink++;
+  }
+  const blank=ink<=Math.max(1,width*.003);
+  if(blank&&start===null)start=y;
+  if((!blank||y===height-1)&&start!==null){
+   const end=blank?y+1:y;
+   if(end-start>=gap)bands.push({start,end});
+   start=null;
+  }
+ }
+ return bands.filter((band,i)=>band.start>0&&band.end<height&&(lineGaps||band.start-(bands[i-1]?.end||0)>=width*.16)).map(band=>Math.floor((band.start+band.end)/2));
+};
 /* Runs only over trusted renderer output: Markdown raw HTML is escaped upstream. */
 window.paginateRedleaf=async function(config){
  const source=document.querySelector('#source'),root=document.querySelector('#pages');
@@ -144,6 +165,31 @@ window.paginateRedleaf=async function(config){
    while(last&&/^H[1-6]$/.test(last.tagName)){trailing.unshift(last);last=last.previousElementSibling;}
    if(last){trailing.forEach(el=>el.remove());newPage();current.append(...trailing);}
   }
+  const canvas=document.createElement('canvas');
+  canvas.width=Math.min(original.naturalWidth,1024);canvas.height=Math.round(original.naturalHeight*canvas.width/original.naturalWidth);
+  const context=canvas.getContext('2d',{willReadFrequently:true});context.drawImage(original,0,0,canvas.width,canvas.height);
+  const pixels=context.getImageData(0,0,canvas.width,canvas.height).data;
+  const cuts=window.redleafImageBreaks(pixels,canvas.width,canvas.height).map(y=>y*height/canvas.height);
+  const lineCuts=window.redleafImageBreaks(pixels,canvas.width,canvas.height,true).map(y=>y*height/canvas.height);
+  const probe=document.createElement('div');current.append(probe);
+  const firstAvailable=bottom-(probe.getBoundingClientRect().top-current.closest('.page').getBoundingClientRect().top)-36;probe.remove();
+  const segments=[];let cursor=0;
+  while(cursor<height){
+   const available=segments.length?capacity:firstAvailable;
+   const end=height-cursor<=available?height:(cuts.filter(y=>y>cursor+100&&y<=cursor+available).at(-1)??lineCuts.filter(y=>y>cursor+available*.4&&y<=cursor+available).at(-1));
+   if(end===undefined)break;
+   segments.push({offset:cursor,height:end-cursor});cursor=end;
+  }
+  if(cursor<height){
+   // Preserve an unbreakable image in full instead of silently cutting content.
+   if(firstAvailable<=0)throw new Error('长图前标题占满页面，请显式分页。');
+   const scale=Math.min(1,firstAvailable/height);
+   img.style.width=width*scale+'px';img.style.height=height*scale+'px';
+   if(!fits(node))throw new Error('完整长图无法排入页面，请单独提供原图。');
+   warning.push('长图未找到安全分页空白，已完整缩放保留；请检查可读性，必要时提供分段素材。');
+   imageSlices.push({source:node.dataset.source,offset:0,height,totalHeight:height,width:width*scale,mode:'intact'});
+   return true;
+  }
   let offset=0,count=0;
   while(offset<height){
    const frame=document.createElement('div');
@@ -152,14 +198,14 @@ window.paginateRedleaf=async function(config){
    const top=frame.getBoundingClientRect().top-current.closest('.page').getBoundingClientRect().top;frame.remove();
    const available=bottom-top-36;
    if(available<100)throw new Error('长图前标题占满页面，请显式分页。');
-   const size=Math.min(available,height-offset);frame.style.height=size+'px';
+   const size=segments[count].height;frame.style.height=size+'px';
    const copy=img.cloneNode(true);copy.style.width=width+'px';copy.style.height=height+'px';copy.style.top=-offset+'px';
    if(count)copy.dataset.repeat='true';
    let wrapped=copy;
    for(let ancestor=img.parentElement;ancestor&&ancestor!==node;ancestor=ancestor.parentElement){const shell=ancestor.cloneNode(false);shell.append(wrapped);wrapped=shell;}
    frame.append(wrapped);
    if(!fits(frame))throw new Error('长图分段超出边界。');
-   imageSlices.push({source:node.dataset.source,offset,height:size,totalHeight:height,width});
+   imageSlices.push({source:node.dataset.source,offset,height:size,totalHeight:height,width,mode:'whitespace'});
    offset+=size;count++;if(offset<height)newPage();
   }
   return true;

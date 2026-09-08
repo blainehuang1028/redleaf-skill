@@ -14,6 +14,7 @@ const destination=path.resolve(process.argv[2]||await fs.mkdtemp(path.join(os.tm
 await fs.mkdir(destination,{recursive:true});
 function run(args,{ok=true}={}){return new Promise((resolve,reject)=>{let log='';const p=spawn(process.execPath,args,{cwd:root,stdio:['ignore','pipe','pipe']});p.stdout.on('data',b=>log+=b);p.stderr.on('data',b=>log+=b);p.on('error',reject);p.on('close',code=>{if(ok&&code!==0)reject(new Error(log));else resolve({code,log});});});}
 const render=async(name,file,args=[])=>{const out=path.join(destination,name);await run(['skills/redleaf/scripts/render.mjs',file,'--out',out,...args]);console.log(`PASS render ${name}`);return out;};
+process.stdout.write((await run(['tests/long-image-boundaries.mjs'])).log);
 const cases=[];
 for(const theme of ['zhusha','canglan','canglv','zheshi','tenghuang'])cases.push(await render(`showcase-${theme}`,'tests/fixtures/showcase.md',['--theme',theme,'--cover-highlight','意有光']));
 for(const [name,file,args] of [
@@ -38,6 +39,27 @@ try{
  await page.goto(pathToFileURL(path.join(destination,'linked-image/document.html')).href);
  assert(await page.evaluate(()=>[...document.querySelectorAll('.image-slice img')].every(img=>img.closest('a')?.href==='https://example.com/guide')));
  console.log('PASS nested numbers, linked slices, heading with image');
+ await page.goto(pathToFileURL(path.join(destination,'long-image/document.html')).href);
+ const sliceQa=JSON.parse(await fs.readFile(path.join(destination,'long-image/qa.json'),'utf8'));
+ const cutInk=await page.evaluate(async ({slices,dataUrl})=>{
+  const img=new Image();img.src=dataUrl;await img.decode();
+  const canvas=document.createElement('canvas');canvas.width=img.naturalWidth;canvas.height=img.naturalHeight;
+  const ctx=canvas.getContext('2d');ctx.drawImage(img,0,0);const bg=ctx.getImageData(0,0,1,1).data;
+  return slices.slice(1).map(slice=>{
+   const y=Math.round(slice.offset/slice.totalHeight*canvas.height),row=ctx.getImageData(0,y,canvas.width,1).data;
+   let ink=0;for(let x=0;x<canvas.width;x++)if(Math.max(Math.abs(row[x*4]-bg[0]),Math.abs(row[x*4+1]-bg[1]),Math.abs(row[x*4+2]-bg[2]))>60)ink++;
+   return ink/canvas.width;
+  });
+ },{slices:sliceQa.imageSlices,dataUrl:'data:image/png;base64,'+(await fs.readFile('tests/fixtures/guide-long.png')).toString('base64')});
+ assert(cutInk.length>0);assert(cutInk.every(ratio=>ratio<.005),'cuts must cross blank rows in the original screenshot');
+ console.log('PASS original screenshot cut rows contain no text');
+ const solidUrl=await page.evaluate(()=>{const c=document.createElement('canvas');c.width=100;c.height=600;const x=c.getContext('2d');x.fillStyle='#c04040';x.fillRect(0,0,100,600);return c.toDataURL();});
+ const solidSource=path.join(destination,'solid-image.md');await fs.writeFile(solidSource,`![solid image](${solidUrl})`);
+ const solidOut=await render('solid-image',solidSource,['--no-cover']);
+ const solidQa=JSON.parse(await fs.readFile(path.join(solidOut,'qa.json'),'utf8'));
+ assert(solidQa.passed);assert.equal(solidQa.imageSlices.length,1);assert.equal(solidQa.imageSlices[0].mode,'intact');
+ assert(solidQa.warnings.some(w=>w.includes('完整缩放')));
+ console.log('PASS unsplittable image stays intact with readability warning');
 }finally{await browser.close();}
 for(const name of ['long-image','linked-image']){
  const qa=JSON.parse(await fs.readFile(path.join(destination,name,'qa.json'),'utf8'));assert(qa.imageSlices.length>1);let offset=0;

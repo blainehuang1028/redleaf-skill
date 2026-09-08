@@ -17,7 +17,7 @@ npx skills add blainehuang1028/redleaf-skill --skill redleaf
 默认安装到当前项目。加 `-g` 可全局安装，加 `-a codex` 可指定 Codex。若需固定版本：
 
 ```sh
-npx skills add https://github.com/blainehuang1028/redleaf-skill/tree/v0.1.0/skills/redleaf
+npx skills add https://github.com/blainehuang1028/redleaf-skill/tree/v0.1.1/skills/redleaf
 ```
 
 也可下载 [技能 ZIP](https://github.com/blainehuang1028/redleaf-skill/releases/latest/download/redleaf-skill.zip)，将 `redleaf` 文件夹放入 Agent 的 skills 目录。入口为 [SKILL.md](skills/redleaf/SKILL.md)。不需要连接社交账号。
