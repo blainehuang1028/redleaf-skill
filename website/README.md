@@ -37,3 +37,5 @@ python3 scripts/build-website.py --outputs output/release
 将 `website/` 内容或 `dist/redleaf-website.zip` 上传至静态托管服务。无构建步骤。服务器需将 `/` 映射到 `index.html`，保留目录结构。正式域名确定后，可添加绝对 canonical URL、绝对 Open Graph 图片 URL、sitemap 与自定义域名配置。此处不预填未确定域名。
 
 设计延续红笺纸墨系统，疏朗布局、克制交互（variance 5 / motion 2 / density 3）。浅色页面采用暖纸色，深色遵循系统偏好；排版成品保持原始纸色。展示区支持原尺寸图片弹窗预览；首屏图片仅作展示。不使用滚动劫持。
+
+样机透明背景由 `python3 scripts/extract-phone.py` 从已确认原图提取，保留屏幕内容与真实 alpha 通道。完整示例在桌面、平板、手机按 4 / 3 / 2 / 1 列展示；各二级页面有返回首页及回顶按钮。

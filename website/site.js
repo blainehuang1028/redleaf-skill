@@ -43,3 +43,18 @@ if(previewLinks.length){
   });
  }
 }
+
+// Enter each page at its intended beginning; preserve explicit section anchors.
+if ('scrollRestoration' in history) history.scrollRestoration='manual';
+window.addEventListener('pageshow',()=>{
+ if(!location.hash)window.scrollTo({top:0,left:0,behavior:'instant'});
+});
+const toTop=document.createElement('button');
+toTop.type='button';toTop.className='to-top';toTop.textContent='↑ 回到顶部';toTop.hidden=true;
+document.body.append(toTop);
+const updateTopButton=()=>{toTop.hidden=window.scrollY<400;};
+window.addEventListener('scroll',updateTopButton,{passive:true});updateTopButton();
+toTop.addEventListener('click',()=>{
+ window.scrollTo({top:0,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'});
+ document.querySelector('.back-link,.brand')?.focus({preventScroll:true});
+});

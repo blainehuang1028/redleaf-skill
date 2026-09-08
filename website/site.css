@@ -33,3 +33,29 @@ html.preview-open{overflow:hidden}
 /* The generated phone already contains its frame and studio shadow. */
 .hero-art{width:330px}.hero-art img{box-shadow:none;transform:none;border-radius:8px}.hero-art figcaption{font-size:11px}
 @media(max-width:700px){.hero-art{width:220px}}
+
+/* True alpha cutout retains the approved phone screen. */
+.phone-cutout{filter:drop-shadow(0 10px 12px var(--shadow));border-radius:0!important}
+.principles{padding:40px 0;grid-template-columns:220px minmax(0,1fr);gap:48px;align-items:start}
+.principles h2{font-size:32px;line-height:1.6}
+.principle-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px}
+.principle-list article+article{margin-top:0}.principle-list h3{font-size:19px;line-height:1.7;margin-bottom:10px}.principle-list p{font-size:14px;line-height:1.9}
+.story-frame{border:1px solid var(--line);border-radius:12px;padding:32px;background:var(--panel);grid-template-columns:minmax(240px,340px) minmax(0,1fr);gap:64px}
+.story-frame figure{padding:12px;background:var(--bg);border:1px solid var(--line);border-radius:5px}
+.story-frame img{box-shadow:none}.story-frame figcaption{text-align:center}
+.back-link{display:inline-flex;align-items:center;min-height:44px;font-size:14px;text-decoration:none;color:var(--accent);margin:8px 0 20px}
+.to-top{position:fixed;right:24px;bottom:24px;z-index:3;border:1px solid var(--line);border-radius:24px;background:var(--bg);color:var(--ink);padding:10px 17px;min-height:44px;box-shadow:0 4px 16px var(--shadow);font-size:13px}
+.to-top[hidden]{display:none}
+.article-page .section-title{padding-top:0;margin-bottom:32px;max-width:760px}
+.article-page .section-title h1{font-size:34px;line-height:1.5}.article-page .section-title p{font-size:15px}
+.article-page .article-gallery{grid-template-columns:repeat(4,minmax(0,1fr));gap:22px;padding-bottom:64px;align-items:start}
+.article-gallery figure{padding:10px;background:var(--panel);border:1px solid var(--line);border-radius:6px}
+.article-gallery img{box-shadow:none}.article-gallery figcaption{text-align:center;margin-top:10px}
+@media(max-width:1100px){.principles{grid-template-columns:1fr;gap:24px}.principles h2 br{display:none}.article-page .article-gallery{grid-template-columns:repeat(3,minmax(0,1fr))}.story-frame{gap:32px}}
+@media(max-width:700px){
+ .principles{padding:28px 0;gap:20px}.principles h2{font-size:27px}.principle-list{grid-template-columns:1fr;gap:18px}.principle-list article{display:grid;grid-template-columns:100px minmax(0,1fr);gap:18px}.principle-list h3{font-size:16px;margin:0}.principle-list p{font-size:13px;line-height:1.8}
+ .story-frame{grid-template-columns:1fr;gap:24px;padding:20px}.story-frame figure{width:min(100%,280px);max-width:280px;margin:auto;padding:10px}.story-frame .picture-note{font-size:25px}.story-frame>div>p:not(.picture-note){font-size:14px}.story-frame .text-link{font-size:15px}.story-frame .picture-note br{display:initial}
+ .article-page .article-gallery{grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-flow:row;grid-auto-columns:auto;overflow:visible;gap:14px;padding-bottom:48px}.article-gallery figure{max-width:none;margin:0;padding:7px}.article-gallery figcaption{font-size:12px}
+ .article-page .section-title h1{font-size:28px}.article-page .section-title p{font-size:14px}.to-top{right:16px;bottom:16px}.back-link{margin-top:0}
+}
+@media(max-width:440px){.article-page .article-gallery{grid-template-columns:1fr}.article-gallery figure{width:100%;max-width:340px;margin:auto;padding:12px}}
