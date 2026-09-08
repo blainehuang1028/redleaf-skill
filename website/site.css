@@ -18,3 +18,18 @@ html.preview-open{overflow:hidden}
 .lightbox-body img{display:block;max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;box-shadow:0 12px 50px #0005}
 .lightbox-body img[hidden]{display:none}.lightbox-status:empty{display:none}.lightbox-status{font-size:14px}
 @media(max-width:700px){.lightbox{padding:12px;gap:12px}.lightbox-caption{font-size:12px}.lightbox-toolbar{gap:12px}}
+
+@media(max-width:700px){
+ .hero-art{width:200px}.hero{gap:28px}.hero-art figcaption{font-size:11px}
+ .samples .gallery{grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:min(68vw,230px);gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding:8px 4px 20px;scrollbar-width:thin}
+ .samples .gallery figure{scroll-snap-align:start;margin:0;max-width:none}
+ .picture-grid{grid-template-columns:112px minmax(0,1fr);gap:20px;align-items:start}
+ .picture-grid figure{width:112px;margin:0}.picture-grid figcaption{font-size:11px;line-height:1.6;margin-top:10px}
+ .picture-note{font-size:23px;line-height:1.5;margin-bottom:12px}
+ .picture-grid>div>p:not(.picture-note){font-size:13px;line-height:1.8}
+ .picture-grid .text-link{font-size:14px;margin-top:14px}.picture-grid .quiet{margin-top:12px}
+}
+
+/* The generated phone already contains its frame and studio shadow. */
+.hero-art{width:330px}.hero-art img{box-shadow:none;transform:none;border-radius:8px}.hero-art figcaption{font-size:11px}
+@media(max-width:700px){.hero-art{width:220px}}

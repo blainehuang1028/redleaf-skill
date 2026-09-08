@@ -15,7 +15,7 @@ python3 -m http.server 4388 --directory website
 - `index.html`：产品说明、五主题真实 WebP 样张、npx 安装命令、技能 ZIP、复制与主题切换。
 - `guide.html`：安装、配置、运行和使用边界。
 - `sources.html`：图片、字体、色彩、代码来源。
-- `examples/article/`：从 Markdown 直接排版的完整图文作品，含封面、图文、正文与摘记；旧长图示例链接跳转到此处。
+- `examples/article/`：京都庭园完整图文，含 7 张成品、原稿、准备稿、5 张配图和署名许可；旧长图示例链接跳转到此处。
 
 ## 重建资产
 
@@ -28,7 +28,9 @@ python3 -m pip install -r requirements-dev.txt
 python3 scripts/build-website.py --outputs output/release
 ```
 
-回归输出必须写入新目录；也可改用另一个目录并传给 `--outputs`。网站字体使用本地子集，重新生成后保留随附 OFL 许可证。样张使用经过 `qa.json` 检查的实际输出，主题切换更换真实图片，不用 CSS 给截图改色。
+回归输出必须写入新目录；也可改用另一个目录并传给 `--outputs`。网站字体使用本地子集，重新生成后保留随附 OFL 许可证。京都示例在标准导出后运行 `scripts/refine-kyoto-cover.mjs` 与 `scripts/refine-kyoto-layout.mjs`，校验文字保留与页面边界；回归脚本已包含这些步骤。
+
+样张使用经过 `qa.json` 检查的实际输出，主题切换更换真实图片，不用 CSS 给截图改色。
 
 ## 上线
 
