@@ -1,34 +1,32 @@
-# 红笺 · Redleaf
+# Redleaf
 
-**字有行，意有光。**
+Turn Markdown into paper-style Chinese reading cards. Redleaf uses warm paper, dark ink, and soft highlights while preserving your original text for reading on a phone.
 
-把 Markdown 排成有纸感的中文图文。暖书纸、墨字、贴近字脚的淡染批注；保留原文，让长文在手机上从容展开。
+<img src="website/assets/zhusha-2.webp" width="320" alt="Redleaf body text sample in the cinnabar theme"> <img src="website/assets/photo.webp" width="320" alt="Redleaf cover sample with a photograph">
 
-<img src="website/assets/zhusha-2.webp" width="320" alt="红笺朱砂主题正文样张"> <img src="website/assets/photo.webp" width="320" alt="红笺真实图文封面样张">
+## Install
 
-## 安装
-
-通过 [Skills CLI](https://github.com/vercel-labs/skills) 安装，选择你所用的 Agent：
+Install with the [Skills CLI](https://github.com/vercel-labs/skills) and choose your agent:
 
 ```sh
 npx skills add blainehuang1028/redleaf-skill --skill redleaf
 ```
 
-默认安装到当前项目。加 `-g` 可全局安装，加 `-a codex` 可指定 Codex。若需固定版本：
+The default installation is project-local. Add `-g` for a global installation or `-a codex` to select Codex. To pin a version:
 
 ```sh
 npx skills add https://github.com/blainehuang1028/redleaf-skill/tree/v0.1.1/skills/redleaf
 ```
 
-也可下载 [技能 ZIP](https://github.com/blainehuang1028/redleaf-skill/releases/latest/download/redleaf-skill.zip)，将 `redleaf` 文件夹放入 Agent 的 skills 目录。入口为 [SKILL.md](skills/redleaf/SKILL.md)。不需要连接社交账号。
+You can also download the [skill ZIP](https://github.com/blainehuang1028/redleaf-skill/releases/latest/download/redleaf-skill.zip) and place the `redleaf` folder in your agent's skills directory. Start with [SKILL.md](skills/redleaf/SKILL.md). No social account connection is needed.
 
-## 使用
+## Use
 
-安装后，把这句话和原稿交给 Agent：
+After installation, give your agent the source document and this instruction:
 
-> 请用红笺排版这份 Markdown，保留原文，使用朱砂主题，导出 3:4 图片和预览。
+> Use Redleaf to typeset this Markdown. Preserve the original text, use the cinnabar theme, and export 3:4 images and a preview.
 
-首次使用需 Node.js 22+。Agent 可按技能说明准备运行依赖；也可以在安装后的 `redleaf` 目录手动运行：
+Initial setup requires Node.js 22 or newer. Your agent can prepare the dependencies using the skill instructions. You can also run these commands inside the installed `redleaf` directory:
 
 ```sh
 npm ci
@@ -37,29 +35,29 @@ npx playwright install chromium
 node scripts/render.mjs examples/article.md --out ./my-first-redleaf
 ```
 
-字体从固定源提交下载并校验 SHA256，初次准备后，使用本地图片的文章可离线渲染。输出目录必须是新目录。
+Fonts are downloaded from pinned source commits and checked against SHA256 hashes. After setup, documents using local images can render offline. The output directory must be new.
 
-## 一篇原稿，一叠红笺
+## Output and layout
 
-- **原句原意，妥帖安放。** 保留文字顺序、链接、原图，代码保留空格与换行。
-- **五色入笺，各得其宜。** 朱砂、苍蓝、苍绿、赭石、藤黄；每册采用统一主题。
-- **长文接页，长图续景。** 段落、嵌套列表、表格与代码自动分页；独立长截图按比例分段，保留完整原图。
-- **此刻成图，来日可续。** 输出 1080×1440 编号 PNG、响应式预览、文字 HTML、原始 Markdown、原图、配置、素材清单与 QA。
+- Preserve text order, links, original images, and whitespace in code.
+- Choose one of five themes for the document: cinnabar, blue, green, ochre, or yellow.
+- Paginate paragraphs, nested lists, tables, and code. Split tall screenshots proportionally while preserving the full original image.
+- Export numbered 1080×1440 PNGs, a responsive preview, text HTML, the source Markdown, original images, configuration, an asset manifest, and QA results.
 
-红笺不自动加品牌或 AI 水印。纸纹与笔触均在本地绘制；页脚默认仅有页码，也可指定作者。图片内原有标记会照原样保留。
+Redleaf does not automatically add branding or AI watermarks. Paper textures and brush marks are drawn locally. Footers contain page numbers by default, with an optional author credit. Existing marks inside source images remain intact.
 
-数学公式与 Mermaid 暂不自动执行，Raw HTML 安全显示为文字。不能排下的单行表格会停止并提示调整，不会生成截断成品。无图时不代造配图，没有原文结语时不补结语。
+Math and Mermaid are not executed automatically. Raw HTML is displayed safely as text. If a table row cannot fit, rendering stops with a request to adjust the content instead of producing a clipped image. Redleaf does not invent illustrations or add a conclusion that is absent from the source.
 
-## 排版系统
+## Typesetting system
 
-- [排版规范](skills/redleaf/references/design-system.md)：字体、留白、纸面、笔触与内容路由。
-- [色彩规范](skills/redleaf/references/color-system.md)：颜料、文字与淡染。
-- [设计参数](skills/redleaf/assets/tokens.json)：生成 CSS 的统一值源。
-- [系统样张](skills/redleaf/examples/system/index.html)：可切换主题，含封面、正文、引用、步骤、表格、长提示词与配图。
-- [运行参考](skills/redleaf/references/rendering.md)：封面、图片、手动分页、局部笔触与离线重排。
-- [官网源文件](website/index.html)：真实导出样张、安装与使用指南；可独立作为静态网站部署。
+- [Design system](skills/redleaf/references/design-system.md): typography, spacing, paper, brush marks, and content routing.
+- [Color system](skills/redleaf/references/color-system.md): pigments, text colors, and highlights.
+- [Design tokens](skills/redleaf/assets/tokens.json): shared values used to generate CSS.
+- [System samples](skills/redleaf/examples/system/index.html): switchable themes with covers, body text, quotes, steps, tables, long prompts, and images.
+- [Rendering reference](skills/redleaf/references/rendering.md): covers, images, manual page breaks, local brush marks, and offline layout adjustments.
+- [Website source](website/index.html): exported samples, installation instructions, and usage guidance. It can be deployed as a standalone static site.
 
-## 开发与验证
+## Development and verification
 
 ```sh
 cd skills/redleaf
@@ -71,14 +69,14 @@ node tests/regression.mjs output/release
 node scripts/package.mjs
 ```
 
-回归覆盖五主题、长文、真实图片、嵌套编号、带链接长截图、标题与配图、空稿拒绝与并发字体安装。测试需要新的输出目录。官网资产构建与部署说明见 [website/README.md](website/README.md)。
+Regression checks cover five themes, long documents, real images, nested numbering, linked tall screenshots, headings with images, empty-document rejection, and concurrent font installation. Tests require a new output directory. See [website/README.md](website/README.md) for website asset builds and deployment instructions.
 
-编辑 `assets/tokens.json` 后，在 skill 目录运行 `node scripts/build-tokens.mjs`。自动检查不替代视觉验收，请查看手机宽度与原尺寸 PNG。
+After editing `assets/tokens.json`, run `node scripts/build-tokens.mjs` from the skill directory. Automated checks do not replace visual review: inspect both the mobile-width preview and full-size PNGs.
 
-## 许可与来源
+## License and sources
 
-独立代码采用 [MIT](LICENSE) 许可。思源宋体、思源黑体、Noto Sans Mono 采用随附 SIL OFL 1.1。
+Original code is licensed under [MIT](LICENSE). Source Han Serif, Source Han Sans, and Noto Sans Mono use the bundled SIL OFL 1.1 licenses.
 
-产品哲学受 [Kami / tw93](https://kami.tw93.fun/index-zh.html) 启发，红笺独立实现图文分页与纸墨笔触。颜色参考[中国色](https://zhongguose.com/)与[东方色](https://www.2kil.com/)，是数字参考，不宣称历史唯一标准。
+The product philosophy was inspired by [Kami / tw93](https://kami.tw93.fun/index-zh.html). Redleaf independently implements image pagination and paper-and-ink effects. Colors reference [Zhongguose](https://zhongguose.com/) and [Dongfangse](https://www.2kil.com/) as digital references, without claiming a unique historical standard.
 
-摄影演示使用 [Mark Koch / Unsplash](https://unsplash.com/photos/river-near-mountains-KiRlN3jjVNU) 的许可照片。详见 [素材记录](tests/fixtures/SOURCES.json)及[来源与复用范围](skills/redleaf/references/sources.md)。
+Photography samples use a licensed image by [Mark Koch / Unsplash](https://unsplash.com/photos/river-near-mountains-KiRlN3jjVNU). See the [asset records](tests/fixtures/SOURCES.json) and [sources and reuse boundaries](skills/redleaf/references/sources.md).
